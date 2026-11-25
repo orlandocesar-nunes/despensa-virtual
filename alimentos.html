@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Minha despensa</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="cabecalho">
+        <div class="marca">
+            <span class="nome-marca">minha despensa virtual</span>
+        </div>
+
+        <nav class="navegacao">
+            <a href="index.html">Início</a>
+            <a href="alimentos.html">Alimentos</a>
+            <a href="receitas.html">Receitas</a>
+            <a href="lista.html">Lista de compras</a>
+        </nav>
+    </header>
+
+    <main class="despensa">
+
+        <section class="introducao-despensa">
+            <h1>Minha <em>despensa.</em></h1>
+
+            <p>
+                Tudo o que você tem. Tudo o que merece ser aproveitado.
+            </p>
+        </section>
+
+        <section class="resumo-alimentos">
+
+            <article class="resumo-item">
+                <span>Alimentos armazenados</span>
+                <strong id="total-alimentos">0</strong>
+            </article>
+
+            <article class="resumo-item">
+                <span>Próximos do vencimento</span>
+                <strong id="total-vencimento">0</strong>
+            </article>
+
+            <article class="resumo-item">
+                <span>Já vencidos</span>
+                <strong id="total-vencidos">0</strong>
+            </article>
+
+        </section>
+
+        <section class="gerenciamento-alimentos">
+
+            <div class="titulo-secao">
+                <h2>O que temos por aqui?</h2>
+
+                <button id="btn-adicionar">
+                    + Adicionar alimento
+                </button>
+            </div>
+
+            <div class="ferramentas">
+
+                <input
+                    type="search"
+                    id="busca-alimento"
+                    placeholder="Buscar alimento..."
+                >
+
+                <select id="filtro-alimento">
+                    <option value="todos">Todos os alimentos</option>
+                    <option value="validos">Dentro da validade</option>
+                    <option value="proximos">Próximos do vencimento</option>
+                    <option value="vencidos">Vencidos</option>
+                </select>
+
+            </div>
+
+            <div id="lista-alimentos">
+
+                <div class="estado-vazio">
+                    <h3>Sua despensa está esperando.</h3>
+
+                    <p>
+                        Adicione seu primeiro alimento e comece
+                        a acompanhar suas validades.
+                    </p>
+
+                    <button id="btn-primeiro-alimento">
+                        Adicionar meu primeiro alimento
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+        <div class="campo">
+    <label for="categoria-alimento">Categoria</label>
+
+    <select id="categoria-alimento" required>
+        <option value="" disabled selected>
+            Selecione uma categoria
+        </option>
+        <option value="frutas">Frutas</option>
+        <option value="verduras">Verduras e legumes</option>
+        <option value="laticinios">Laticínios</option>
+        <option value="carnes">Carnes</option>
+        <option value="graos">Grãos e cereais</option>
+        <option value="outros">Outros</option>
+    </select>
+    </div>
+
+    <div class="campo">
+        <label for="alimento">Alimento</label>
+
+        <select id="alimento" required disabled>
+            <option value="" selected>
+                Selecione primeiro uma categoria
+            </option>
+        </select>
+    </div>
+    </main>
+<script>
+    const categoria = document.getElementById("categoria-alimento");
+    const alimento = document.getElementById("alimento");
+
+    const alimentosPorCategoria = {
+        frutas: [
+            "Abacate",
+            "Abacaxi",
+            "Banana",
+            "Laranja",
+            "Limão",
+            "Maçã",
+            "Mamão",
+            "Manga",
+            "Morango",
+            "Uva"
+        ],
+
+        verduras: [
+            "Alface",
+            "Batata",
+            "Brócolis",
+            "Cebola",
+            "Cenoura",
+            "Pepino",
+            "Tomate",
+            "Abóbora",
+            "Abobrinha"
+        ],
+
+        laticinios: [
+            "Leite",
+            "Queijo",
+            "Iogurte",
+            "Manteiga",
+            "Requeijão"
+        ],
+
+        carnes: [
+            "Carne bovina",
+            "Frango",
+            "Peixe",
+            "Carne suína",
+            "Linguiça"
+        ],
+
+        graos: [
+            "Arroz",
+            "Feijão",
+            "Macarrão",
+            "Lentilha",
+            "Grão-de-bico",
+            "Aveia",
+            "Farinha de trigo"
+        ],
+
+        outros: [
+            "Ovo",
+            "Café",
+            "Açúcar",
+            "Sal",
+            "Óleo",
+            "Molho de tomate"
+        ]
+    };
+
+    categoria.addEventListener("change", function () {
+        const selecionada = categoria.value;
+
+        alimento.innerHTML = '<option value="" selected disabled>Selecione um alimento</option>';
+
+        const lista = alimentosPorCategoria[selecionada];
+
+        lista.forEach(function (nome) {
+            const opcao = document.createElement("option");
+
+            opcao.value = nome;
+            opcao.textContent = nome;
+
+            alimento.appendChild(opcao);
+        });
+
+        alimento.disabled = false;
+    });
+</script>
+</body>
+</html>
